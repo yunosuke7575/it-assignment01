@@ -1,4 +1,0 @@
-class machine 
-
-
-end
