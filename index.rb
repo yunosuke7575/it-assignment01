@@ -1,18 +1,27 @@
 require "./drink"
 
 cola = Drink.new(name: "コーラ", price: 120, amount: 5)
+redbull = Drink.new(name: "レッドブル", price: 200, amount: 5)
+water = Drink.new(name: "水", price: 100, amount: 5)
+
+
+options = ["コイン投入","ジュース一覧", "ジュース購入","払い戻し"]
+drinks = [cola, redbull, water]
+
 
 i = 0
 
 while i < 100 do 
-	options = ["コイン投入","ジュース一覧", "ジュース購入","払い戻し"]
-	index = 0
+	
+	option_index = 0
+	drinks_index = 0
 
 	options.each do |option|
-		puts "#{index}.#{option}"
-		index += 1
+		puts "#{option_index}.#{option}"
+		option_index += 1
 	end
 
+	puts "番号を入力してください"
 	choice = gets.chomp.to_i
 
 	if choice == 0 
@@ -28,7 +37,11 @@ while i < 100 do
 		end
 		
 	elsif choice == 1
-		puts "#{cola.info}"
+
+		drinks.each do |drink|
+			puts "#{drinks_index}.#{drink.info}"
+			drinks_index += 1
+		end
 
 	elsif choice == 2
 		puts "何個買いますか？"
@@ -50,4 +63,5 @@ while i < 100 do
 	end
 	 i += 1 
 end
+
 
