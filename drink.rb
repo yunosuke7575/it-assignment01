@@ -11,9 +11,7 @@ def initialize(name:, price:, amount:)
 end 
 
 def info 
-	return "#{self.name} #{self.price}円 #{self.amount}個"
+	return "#{self.name} #{self.price}円 残り#{self.amount}個"
 end
-
-
 
 end 

@@ -1,13 +1,11 @@
 require "./drink"
-require "./machine"
 
 cola = Drink.new(name: "コーラ", price: 120, amount: 5)
-money = Money.new
 
 i = 0
 
 while i < 100 do 
-	options = ["コイン投入","ジュース一覧", "終了する"]
+	options = ["コイン投入","ジュース一覧", "ジュース購入","払い戻し"]
 	index = 0
 
 	options.each do |option|
@@ -31,7 +29,23 @@ while i < 100 do
 		
 	elsif choice == 1
 		puts "#{cola.info}"
+
+	elsif choice == 2
+		puts "何個買いますか？"
+		purchase_number = gets.chomp.to_i 
+		total_sales = cola.price * purchase_number
+		
+		if total_money > total_sales && cola.amount > 0 
+			total_money = total_money - total_sales
+			cola.amount = cola.amount - purchase_number
+			puts "売り上げは#{total_sales}円です"
+			puts "残金は#{total_money}円です"
+		else
+			puts "購入できません"
+		end
+
 	else 
+		puts "お釣りは#{total_money}円です"
 		break
 	end
 	 i += 1 
