@@ -5,7 +5,7 @@ redbull = Drink.new(name: "レッドブル", price: 200, amount: 5)
 water = Drink.new(name: "水", price: 100, amount: 5)
 
 
-options = ["コイン投入","ジュース一覧", "ジュース購入","払い戻し"]
+options = ["コイン投入","ジュース購入", "ジュース一覧","払い戻し"]
 drinks = [cola, redbull, water]
 
 
@@ -43,18 +43,64 @@ while i < 100 do
 			drinks_index += 1
 		end
 
-	elsif choice == 2
-		puts "何個買いますか？"
-		purchase_number = gets.chomp.to_i 
-		total_sales = cola.price * purchase_number
+		puts "何番を購入しますか？"
+		drink_choice = gets.chomp.to_i
 		
-		if total_money > total_sales && cola.amount > 0 
-			total_money = total_money - total_sales
-			cola.amount = cola.amount - purchase_number
-			puts "売り上げは#{total_sales}円です"
-			puts "残金は#{total_money}円です"
+
+		if drink_choice == 0 
+			puts "何個買いますか？"
+			purchase_number = gets.chomp.to_i
+			total_sales = total_sales.to_i + (cola.price * purchase_number)
+			cola_sales = cola.price * purchase_number
+
+			if total_money > cola_sales && cola.amount > 0 
+				total_money = total_money - cola_sales
+				cola.amount = cola.amount - purchase_number
+					puts "売り上げは#{total_sales}円です"
+					puts "残金は#{total_money}円です"
+				else
+					puts "購入できません"
+			end
+
+		elsif drink_choice == 1 
+			puts "何個買いますか？"
+			purchase_number = gets.chomp.to_i
+			total_sales = total_sales.to_i + (redbull.price * purchase_number)
+			redbull_sales = redbull.price * purchase_number
+
+			if total_money > redbull_sales && redbull.amount > 0 
+				total_money = total_money - redbull_sales
+				redbull.amount = redbull.amount - purchase_number
+					puts "売り上げは#{total_sales}円です"
+					puts "残金は#{total_money}円です"
+				else
+					puts "購入できません"
+			end
+
+		elsif drink_choice == 2 
+			puts "何個買いますか？"
+			purchase_number = gets.chomp.to_i
+			total_sales = total_sales.to_i + (water.price * purchase_number)
+			water_sales = water.price * purchase_number
+
+			if total_money > water_sales && water.amount > 0 
+				total_money = total_money - water_sales
+				water.amount = water.amount - purchase_number
+					puts "売り上げは#{total_sales}円です"
+					puts "残金は#{total_money}円です"
+				else
+					puts "購入できません"
+			end 
+
 		else
-			puts "購入できません"
+			break
+		end
+			
+
+	elsif choice == 2
+		drinks.each do |drink|
+			puts "#{drinks_index}.#{drink.info}"
+			drinks_index += 1
 		end
 
 	else 
