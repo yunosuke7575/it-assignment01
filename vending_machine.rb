@@ -8,7 +8,7 @@ class VendingMachine
 	def initialize 
 		@total_money = 0
 		@total_sales = 0
-		@cola = Drink.new(name: "コーラ", price: 120, amount: 5)
+		@cola = Drink.new(name: "cola", price: 120, amount: 5)
 	end
 
 	def insert 
@@ -34,22 +34,41 @@ class VendingMachine
 
 	def purchase_cola
 		if @total_money > @cola.price && @cola.amount != 0 
-			@total_money -= @cola.price
 			@cola.amount -= 1 
 			@total_sales += @cola.price
+			@total_money -= @cola.price
 		else
 		end
 	end 
 
+	def purchase_redbull
+		if @total_money > @redbull.price && @redbull.amount != 0 
+			@redbull.amount -= 1 
+			@total_sales += @redbull.price
+			@total_money -= @redbull.price
+		else
+		end
+	end
+
+	def purchase_water
+		if @total_money > @water.price && @water.amount != 0 
+			@water.amount -= 1 
+			@total_sales += @water.price
+			@total_money -= @water.price
+		else
+		end
+	end
+
 	def store_redbull
-		@redbull = Drink.new(name: "レッドブル", price: 200, amount: 5)
+		@redbull = Drink.new(name: "redbull", price: 200, amount: 5)
 	end
 
 	def store_water
-		@water = Drink.new(name: "水", price: 100, amount: 5)
+		@water = Drink.new(name: "water", price: 100, amount: 5)
 	end
 
 	def refund
 		total_money.tap { @total_money =0 }
 	end
+
 end
