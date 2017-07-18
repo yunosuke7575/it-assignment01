@@ -1,4 +1,4 @@
-#自販機ruby_app
+## 自販機ruby_app
 
 ```
 $ irb
