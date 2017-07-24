@@ -20,12 +20,16 @@ class VendingMachine
 			end
 	end 
 
+	# 修正案１：@cola, @water, @redbull... と追加されていく度に、drinks配列の要素が１つ、２つ、３つと増えていく。
+	#           このとき、例えばstore_redbullメソッドが呼ばれたときに、drinks配列に要素が追加される必要がある。
 	def info
 		if @redbull == nil && @water == nil
 			drinks = [@cola.info]
 		elsif @water == nil
+		# スペルミス？誤：driks 正：drinks
 			driks = [@cola.info, @redbull.info]
 		elsif @redbull == nil
+		# スペルミス？誤：driks 正：drinks
 			driks = [@cola.info, @water.info]
 		else
 			drinks = [@cola.info, @water.info, @redbull.info]
@@ -41,6 +45,9 @@ class VendingMachine
 		end
 	end 
 
+  # 予期せぬエラー対策のため、 @redbull.amount != 0 ではなく、 @redbull.amount !<= 0 にしましょう。
+  # （!<= という表現の仕方で合っているかは不明です。申し訳ありません）
+  # if の逆の unless を使うのも手です。（unless・・・falseの場合実行される）
 	def purchase_redbull
 		if @total_money > @redbull.price && @redbull.amount != 0 
 			@redbull.amount -= 1 
@@ -59,10 +66,26 @@ class VendingMachine
 		end
 	end
 
+	# 修正案１：メソッドをひとまとめにし、今後新しい商品を追加しやすいようにしましょう。
+	# （どの商品を追加するのかの判定も、同時に必要になる）
+	# def add_product
+	#   @drinkname = gets.chomp
+	#   case @drinkname
+	#     when redbull then
+	#       @redbull = ...
+	#     when water then
+	#       @water = ...
+	#     else
+	#       puts "そのような名前の商品は存在しません"
+	#   end
+	#
+	# 修正案２：購入処理をし、例えば在庫4個になったとしても、このメソッドを実行すると、
+	#           amount: 5 になってしまいます。これは仕様でしょうか？
 	def store_redbull
 		@redbull = Drink.new(name: "redbull", price: 200, amount: 5)
 	end
 
+	# 同上
 	def store_water
 		@water = Drink.new(name: "water", price: 100, amount: 5)
 	end
